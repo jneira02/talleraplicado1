@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad de La Frontera
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Cliente" table="cliente" lazy="false">
+		<meta attribute="class-description">
+			Tabla de cliente
+		</meta>
+		<id name="id_cliente" column="id_cliente" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="rut" column="rut" unique="true" type="string" length="20" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Rut de cliente
+			</meta>
+		</property>
+		<property name="nombres" column="nombres" type="string" length="100" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Nombres de cliente
+			</meta>
+		</property>
+		<property name="apellido_materno" column="apellido_materno" type="string" length="50" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Apellido materno
+			</meta>
+		</property>
+		<property name="apellido_paterno" column="apellido_paterno" type="string" length="50" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Apellido paterno
+			</meta>
+		</property>
+		<property name="telefono" column="telefono" type="string" length="20" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Telefono de cliente
+			</meta>
+		</property>
+		<property name="email" column="email" type="string" length="100" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Email de cliente
+			</meta>
+		</property>
+		<property name="direccion" column="direccion" type="string" length="100" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Direccion o domicilio de cliente
+			</meta>
+		</property>
+		<property name="fecha_creacion" column="fecha_creacion" type="string" length="20" not-null="false" lazy="false"/>
+		<many-to-one name="id_login" cascade="lock" column="id_login" class="orm.Login" not-null="true" lazy="no-proxy" access="field">
+		</many-to-one>
+		<set name="ORM_Cliente_historico" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_cliente" not-null="true"/>
+			<one-to-many class="orm.Cliente_historico"/>
+		</set>
+		<set name="ORM_Cuenta" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_cliente" not-null="true"/>
+			<one-to-many class="orm.Cuenta"/>
+		</set>
+	</class>
+</hibernate-mapping>
