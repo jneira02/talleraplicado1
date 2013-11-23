@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad de La Frontera
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Login" table="login" lazy="false">
+		<id name="id_login" column="id_login" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="token" column="token" unique="true" type="string" length="255" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Token de verificacion
+			</meta>
+		</property>
+		<property name="fecha_logeo" column="fecha_logeo" type="string" length="20" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Fecha de login
+			</meta>
+		</property>
+		<property name="fecha_fin" column="fecha_fin" type="string" length="20" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Fecha de fin del login
+			</meta>
+		</property>
+		<many-to-one name="id_administrador" cascade="lock" column="id_administrador" class="orm.Administrador" not-null="true" lazy="no-proxy" access="field">
+		</many-to-one>
+		<property name="sesionActiva" column="sesionActiva" type="string" length="1" not-null="true" lazy="false"/>
+		<set name="ORM_Cliente" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_login" not-null="true"/>
+			<one-to-many class="orm.Cliente"/>
+		</set>
+		<set name="ORM_Cliente_historico" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_login" not-null="true"/>
+			<one-to-many class="orm.Cliente_historico"/>
+		</set>
+		<set name="ORM_Cuenta" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="id_login" not-null="true"/>
+			<one-to-many class="orm.Cuenta"/>
+		</set>
+	</class>
+</hibernate-mapping>
