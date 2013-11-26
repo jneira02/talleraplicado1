@@ -418,7 +418,7 @@ public class ServicioAndroid {
 	 * @return the array list
 	 */
 
-	public List<domain.ClienteVO> mostrarClientes(String clienteJSON){
+	public String mostrarClientes(String clienteJSON){
 
 		final Gson gson = new Gson();
 		ClienteVO oClienteVO = gson.fromJson(clienteJSON, ClienteVO.class);
@@ -475,7 +475,10 @@ public class ServicioAndroid {
 						clientes[i].getEmail(), clientes[i].getDireccion(), clientes[i].getFecha_creacion(),
 						LoginEnOrm));
 			}
-			return clientesIngresados;
+
+
+
+			return gson.toJson(clientesIngresados);
 		} catch (PersistentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -575,7 +578,7 @@ public class ServicioAndroid {
 	 * @param log, login del usuario logueado
 	 * @return true, si el token esta vigente
 	 */
-	
+
 	@SuppressWarnings("deprecation")
 	public boolean verificarLoginVigente(String token){
 
