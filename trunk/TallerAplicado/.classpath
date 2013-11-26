@@ -15,5 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/MauricioPC/Desktop/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
