@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad de La Frontera
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Contacto" table="contacto" lazy="false">
+		<id name="uid" column="uid" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="nombre" column="nombre" type="string" length="255" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Nombre
+			</meta>
+		</property>
+		<property name="apellido" column="apellido" type="string" length="100" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Apellido
+			</meta>
+		</property>
+		<property name="email" column="email" type="string" length="50" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Mail
+			</meta>
+		</property>
+		<property name="telefono" column="telefono" type="integer" length="20" not-null="false" lazy="false"/>
+		<property name="cargo" column="cargo" type="string" length="255" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Cargo
+			</meta>
+		</property>
+		<property name="fax" column="fax" type="string" length="20" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Fax
+			</meta>
+		</property>
+		<property name="area" column="area" type="string" length="100" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Area
+			</meta>
+		</property>
+	</class>
+</hibernate-mapping>
