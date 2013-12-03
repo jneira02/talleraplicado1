@@ -13,7 +13,7 @@ License Type: Academic
 			<generator class="increment">
 			</generator>
 		</id>
-		<property name="rut" column="rut" unique="true" type="string" length="20" not-null="false" lazy="false">
+		<property name="rut" column="rut" unique="true" type="string" length="20" not-null="true" lazy="false">
 			<meta attribute="field-description">
 				Rut de cliente
 			</meta>

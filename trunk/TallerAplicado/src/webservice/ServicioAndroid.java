@@ -202,86 +202,91 @@ public class ServicioAndroid {
 	 */
 
 	public String modificarCliente(String clienteAntiguoJSON, String clienteNuevoJSON){
-		PersistentTransaction t;
-		try {
+		final Gson gson = new Gson();
+		ClienteVO oClienteVOAntiguo = gson.fromJson(clienteAntiguoJSON, ClienteVO.class);
+		ClienteVO oClienteVONuevo = gson.fromJson(clienteNuevoJSON, ClienteVO.class);
 
-
-			final Gson gson = new Gson();
-			ClienteVO oClienteVOAntiguo = gson.fromJson(clienteAntiguoJSON, ClienteVO.class);
-			ClienteVO oClienteVONuevo = gson.fromJson(clienteNuevoJSON, ClienteVO.class);
-
-			if(oClienteVOAntiguo != null || oClienteVONuevo != null){
-				t = orm.BDtalleraplicadoPersistentManager.instance().getSession().beginTransaction();
-				/*
-				 * Buscar cliente antiguo para modificarlo
-				 */
-				String consultaCliente = "rut = '"+oClienteVOAntiguo.getRut()+"'";
-				orm.Cliente lormCliente = orm.ClienteDAO.loadClienteByQuery(consultaCliente, null);
-
-				// Primero comprobar que la sesion actual esta activa, o que el token sea valido
-				// comprobar();
-				// Luego comprobar si el cliente o login vienen vacíos
-
-
-				/*
-				 * Modificar cliente buscado en la BD
-				 */
-
-				lormCliente.setRut(oClienteVONuevo.getRut());
-				lormCliente.setNombres(oClienteVONuevo.getNombres());
-				lormCliente.setApellido_materno(oClienteVONuevo.getApellido_materno());
-				lormCliente.setApellido_paterno(oClienteVONuevo.getApellido_paterno());
-				lormCliente.setTelefono(oClienteVONuevo.getTelefono());
-				lormCliente.setEmail(oClienteVONuevo.getEmail());
-				lormCliente.setDireccion(oClienteVONuevo.getDireccion());
-
-				orm.Cliente_historico lormClienteHist = orm.Cliente_historicoDAO.createCliente_historico();
-
-				lormClienteHist.setRut(oClienteVOAntiguo.getRut());
-				lormClienteHist.setNombres(oClienteVOAntiguo.getNombres());
-				lormClienteHist.setApellido_materno(oClienteVOAntiguo.getApellido_materno());
-				lormClienteHist.setApellido_paterno(oClienteVOAntiguo.getApellido_paterno());
-				lormClienteHist.setTelefono(oClienteVOAntiguo.getTelefono());
-				lormClienteHist.setEmail(oClienteVOAntiguo.getEmail());
-				lormClienteHist.setDireccion(oClienteVOAntiguo.getDireccion());
-				lormClienteHist.setFecha_modificacion(fechaActual());
-
-
-
-				/*String userTemp = "admin";
-			String passTemp = "admin";
-
-			String token = "HEBANXSXHMLNTFUXEDPRQGVEDBMCIOHJ";
-				 */
-
-				/*	String condLogin = "user = '"+oClienteVOAntiguo.getLoginVO().getAdministradorVO().getUser()  
-						+"' and password = '"+oClienteVOAntiguo.getLoginVO().getAdministradorVO().getPassword() +"'";*/
-
-				String logCond = "token = '"+oClienteVOAntiguo.getLoginVO().getToken() /*token*/+"' and sesionActiva = 'S'";
-
-				orm.Login loginAdminORM = orm.LoginDAO.loadLoginByQuery(logCond, null);
-				//orm.Administrador adminLogeadoORM = orm.AdministradorDAO.loadAdministradorByQuery(condLogin, null);
-
-				//loginAdminORM.setId_administrador(adminLogeadoORM);
-				lormClienteHist.setId_login(loginAdminORM);
-				lormClienteHist.setId_cliente(lormCliente);
-				orm.Cliente_historicoDAO.save(lormClienteHist);
-
-				/*
-				 * Guarda cliente con datos de login y admin
-				 */
-				//orm.ClienteDAO.save(lormCliente);
-				t.commit();
-				return "cliente modificado";} else {
-					return "campos vacios";
-				}
-		} catch (PersistentException e) {
-			e.printStackTrace();
-			return "error persistencia";
-
-		}  catch (Exception ex){
-			ex.printStackTrace();
-			return "credenciales invalidas";
+		if(oClienteVOAntiguo != null || oClienteVONuevo != null){
+		
+			PersistentTransaction t;
+			try {
+	
+	
+	
+					t = orm.BDtalleraplicadoPersistentManager.instance().getSession().beginTransaction();
+					/*
+					 * Buscar cliente antiguo para modificarlo
+					 */
+					String consultaCliente = "rut = '"+oClienteVOAntiguo.getRut()+"'";
+					orm.Cliente lormCliente = orm.ClienteDAO.loadClienteByQuery(consultaCliente, null);
+	
+					// Primero comprobar que la sesion actual esta activa, o que el token sea valido
+					// comprobar();
+					// Luego comprobar si el cliente o login vienen vacíos
+	
+	
+					/*
+					 * Modificar cliente buscado en la BD
+					 */
+	
+					lormCliente.setRut(oClienteVONuevo.getRut());
+					lormCliente.setNombres(oClienteVONuevo.getNombres());
+					lormCliente.setApellido_materno(oClienteVONuevo.getApellido_materno());
+					lormCliente.setApellido_paterno(oClienteVONuevo.getApellido_paterno());
+					lormCliente.setTelefono(oClienteVONuevo.getTelefono());
+					lormCliente.setEmail(oClienteVONuevo.getEmail());
+					lormCliente.setDireccion(oClienteVONuevo.getDireccion());
+	
+					orm.Cliente_historico lormClienteHist = orm.Cliente_historicoDAO.createCliente_historico();
+	
+					lormClienteHist.setRut(oClienteVOAntiguo.getRut());
+					lormClienteHist.setNombres(oClienteVOAntiguo.getNombres());
+					lormClienteHist.setApellido_materno(oClienteVOAntiguo.getApellido_materno());
+					lormClienteHist.setApellido_paterno(oClienteVOAntiguo.getApellido_paterno());
+					lormClienteHist.setTelefono(oClienteVOAntiguo.getTelefono());
+					lormClienteHist.setEmail(oClienteVOAntiguo.getEmail());
+					lormClienteHist.setDireccion(oClienteVOAntiguo.getDireccion());
+					lormClienteHist.setFecha_modificacion(fechaActual());
+	
+	
+	
+					/*String userTemp = "admin";
+				String passTemp = "admin";
+	
+				String token = "HEBANXSXHMLNTFUXEDPRQGVEDBMCIOHJ";
+					 */
+	
+					/*	String condLogin = "user = '"+oClienteVOAntiguo.getLoginVO().getAdministradorVO().getUser()  
+							+"' and password = '"+oClienteVOAntiguo.getLoginVO().getAdministradorVO().getPassword() +"'";*/
+	
+					String logCond = "token = '"+oClienteVOAntiguo.getLoginVO().getToken() /*token*/+"' and sesionActiva = 'S'";
+	
+					orm.Login loginAdminORM = orm.LoginDAO.loadLoginByQuery(logCond, null);
+					//orm.Administrador adminLogeadoORM = orm.AdministradorDAO.loadAdministradorByQuery(condLogin, null);
+	
+					//loginAdminORM.setId_administrador(adminLogeadoORM);
+					lormClienteHist.setId_login(loginAdminORM);
+					lormClienteHist.setId_cliente(lormCliente);
+					orm.Cliente_historicoDAO.save(lormClienteHist);
+	
+					/*
+					 * Guarda cliente con datos de login y admin
+					 */
+					//orm.ClienteDAO.save(lormCliente);
+					t.commit();
+					return "cliente modificado";
+			} catch (PersistentException e) {
+				e.printStackTrace();
+				return "error persistencia";
+	
+			}  catch (Exception ex){
+				ex.printStackTrace();
+				return "credenciales invalidas";
+			}
+		
+		}
+		else {
+			return "campos vacios";
 		}
 	}
 
@@ -420,6 +425,8 @@ public class ServicioAndroid {
 
 	public String mostrarClientes(String clienteJSON){
 
+		System.out.println("estoy dentro de mostrar clientes");
+
 		final Gson gson = new Gson();
 		ClienteVO oClienteVO = gson.fromJson(clienteJSON, ClienteVO.class);
 
@@ -434,23 +441,24 @@ public class ServicioAndroid {
 			/*
 			 * El parametro ClienteVO se usa para filtrar, si viene nulo se muestran todos los clientes ingresados
 			 */
+
 			if(oClienteVO != null) {
 
 				if(oClienteVO.getNombres()!=""){
-					condicion += "nombres like '%"+oClienteVO.getNombres()+"%' and ";
+					condicion += "nombres like '%"+oClienteVO.getNombres()+"%' or ";
 				} if(oClienteVO.getApellido_paterno()!=null){
-					condicion += "apellido_paterno like '%"+oClienteVO.getApellido_paterno()+"%' and ";
+					condicion += "apellido_paterno like '%"+oClienteVO.getApellido_paterno()+"%' or ";
 				} if(oClienteVO.getApellido_materno()!=null){
-					condicion += "apellido_materno like '%"+oClienteVO.getApellido_materno()+"%' and ";
+					condicion += "apellido_materno like '%"+oClienteVO.getApellido_materno()+"%' or ";
 				} if(oClienteVO.getRut()!=null){
-					condicion += "rut like '%"+oClienteVO.getRut()+"%' and ";
+					condicion += "rut like '%"+oClienteVO.getRut()+"%' or ";
 				} if(oClienteVO.getTelefono()!=null){
-					condicion += "telefono like '%"+oClienteVO.getTelefono()+"%' and ";
+					condicion += "telefono like '%"+oClienteVO.getTelefono()+"%' or ";
 				}  if(oClienteVO.getEmail()!=null){
-					condicion += "email like '%"+oClienteVO.getEmail()+"%' and ";
+					condicion += "email like '%"+oClienteVO.getEmail()+"%' or ";
 				}  if(oClienteVO.getDireccion()!=null){
 					condicion += "direccion = '"+oClienteVO.getDireccion()+"'";
-					condicion +=" and ";
+					condicion +=" or ";
 				}  if(condicion!=""){
 					condicion=condicion.substring(0, condicion.length()-5);
 				}}
@@ -618,10 +626,12 @@ public class ServicioAndroid {
 
 	public String logear(String adminLoginJSON){
 		PersistentTransaction t;
+		System.out.println(adminLoginJSON);
+		System.out.println("entrar a logear");
 
 		final Gson gson = new Gson();
 		AdministradorVO oAdministradorVO = gson.fromJson(adminLoginJSON, AdministradorVO.class);
-
+		System.out.println(oAdministradorVO.getUser());
 
 		try {
 
@@ -663,6 +673,56 @@ public class ServicioAndroid {
 		} catch (Exception ex){
 			ex.printStackTrace();
 			return ex.toString();
+		}
+	}
+
+	public LoginVO logear2(domain.AdministradorVO oAdministradorVO){
+		PersistentTransaction t;
+
+		if(oAdministradorVO == null || oAdministradorVO.getUser().equals("") 
+				|| oAdministradorVO.getPassword().equals("")){
+			return null;
+		}
+
+		try {
+
+
+
+			t = orm.BDtalleraplicadoPersistentManager.instance().getSession().beginTransaction();
+			String tokenActual = generarToken();
+
+			orm.Login lormLogin = orm.LoginDAO.createLogin();
+			lormLogin.setFecha_logeo(fechaActual());
+			lormLogin.setSesionActiva("S");
+			lormLogin.setToken(tokenActual);
+			lormLogin.setFecha_fin(fechaActualMasCinco());
+
+			LoginVO loginvo = new LoginVO();
+			loginvo.setAdministradorVO(oAdministradorVO);
+			loginvo.setFecha_logeo(fechaActual());
+			loginvo.setToken(tokenActual);
+			loginvo.setFecha_fin(fechaActualMasCinco());
+
+
+			/*
+			 * Se arma la consulta para que compruebe si existe el usuario o contraseña especificados
+			 */
+
+			String condLogin = "user = '"+oAdministradorVO.getUser() 
+					+"' and password = '"+oAdministradorVO.getPassword()+"'";
+
+			orm.Administrador adminLogeadoORM = orm.AdministradorDAO.loadAdministradorByQuery(condLogin, null);
+			lormLogin.setId_administrador(adminLogeadoORM);
+			orm.LoginDAO.save(lormLogin);
+			t.commit();
+			return loginvo;
+
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (Exception ex){
+			return null;
 		}
 	}
 
