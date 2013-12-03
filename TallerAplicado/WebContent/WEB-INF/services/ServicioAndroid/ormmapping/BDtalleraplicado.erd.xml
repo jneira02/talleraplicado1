@@ -308,7 +308,7 @@
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>administrador.id_administrador</ReferencedColumn>
       <Type>9</Type>
-      <Length>0</Length>
+      <Length>10</Length>
       <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -332,7 +332,7 @@
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>9</Type>
-      <Length>0</Length>
+      <Length>10</Length>
       <Nullable>false</Nullable>
       <IDGenerator>increment</IDGenerator>
       <Unique>false</Unique>

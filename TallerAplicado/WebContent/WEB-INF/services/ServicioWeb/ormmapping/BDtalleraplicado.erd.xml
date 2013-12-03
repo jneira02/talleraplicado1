@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Model quotesql="1" tablecharset="" mysql_version="504" mssql_version="2005" derby_version="106">
+<Model quotesql="1" tablecharset="" mysql_version="504" mssql_version="2008" derby_version="106">
   <Entity name="cliente">
     <Column name="id_cliente">
       <PrimaryKey>true</PrimaryKey>
@@ -18,7 +18,7 @@
       <ForeignKey>false</ForeignKey>
       <Type>27</Type>
       <Length>20</Length>
-      <Nullable>true</Nullable>
+      <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>true</Unique>
       <Index>false</Index>

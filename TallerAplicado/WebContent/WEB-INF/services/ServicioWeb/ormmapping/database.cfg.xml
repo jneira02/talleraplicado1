@@ -196,6 +196,21 @@
     <ServerName></ServerName>
     <SelectedForm>true</SelectedForm>
   </Setting>
+  <Setting type="2097152">
+    <Driver>MS SQL Server 2005 (Microsoft Driver)</Driver>
+    <DriverFiles>C:\Users\MauricioPC\Desktop\sqljdbc4.jar</DriverFiles>
+    <Dialect>org.hibernate.dialect.SQLServerDialect</Dialect>
+    <DriverClass>com.microsoft.sqlserver.jdbc.SQLServerDriver</DriverClass>
+    <URL>jdbc:sqlserver://localhost:1433;DatabaseName=talleraplicado1</URL>
+    <UserName>mauricio</UserName>
+    <Password>161291</Password>
+    <HostName>localhost</HostName>
+    <PortNO>1433</PortNO>
+    <DBName>talleraplicado1</DBName>
+    <ServiceName></ServiceName>
+    <ServerName></ServerName>
+    <SelectedForm>true</SelectedForm>
+  </Setting>
   <Setting type="32768">
     <Driver></Driver>
     <DriverFiles></DriverFiles>
