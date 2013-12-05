@@ -9,7 +9,7 @@ public class Administrador {
 
 		try {
 
-			if(oAdministradorVO != null) {
+			if(oAdministradorVO != null || oAdministradorVO.getUser()!="" || oAdministradorVO.getPassword()!="") {
 
 				t = orm.BDtalleraplicadoPersistentManager.instance().getSession().beginTransaction();
 				orm.Administrador lormAdministrador = orm.AdministradorDAO.createAdministrador();
