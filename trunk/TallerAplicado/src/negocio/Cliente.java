@@ -189,41 +189,45 @@ public class Cliente {
 	 */
 
 	public String registrarCliente(domain.ClienteVO oClienteVO){
-		PersistentTransaction t;
-		try {
-			if(oClienteVO != null){
-				t = orm.BDtalleraplicadoPersistentManager.instance().getSession().beginTransaction();
-				orm.Cliente lormCliente = orm.ClienteDAO.createCliente();
-				lormCliente.setRut(oClienteVO.getRut());
-				lormCliente.setNombres(oClienteVO.getNombres());
-				lormCliente.setApellido_materno(oClienteVO.getApellido_materno());
-				lormCliente.setApellido_paterno(oClienteVO.getApellido_paterno());
-				lormCliente.setTelefono(oClienteVO.getTelefono());
-				lormCliente.setEmail(oClienteVO.getEmail());
-				lormCliente.setDireccion(oClienteVO.getDireccion());
-				lormCliente.setFecha_creacion(utilitarios.Utilitario.fechaActual());
+		if(oClienteVO!=null || oClienteVO.getRut()!=" " || oClienteVO.getNombres()!=" " || 
+		oClienteVO.getApellido_materno()!=" "|| oClienteVO.getApellido_paterno()!=" " ||
+		oClienteVO.getTelefono()!="" || oClienteVO.getEmail()!=" " || oClienteVO.getDireccion()!=" "){
+			
+			PersistentTransaction t;
+	        try {
+	                t = orm.BDtalleraplicadoPersistentManager.instance().getSession().beginTransaction();
+	                orm.Cliente lormCliente = orm.ClienteDAO.createCliente();
+	                lormCliente.setRut(oClienteVO.getRut());
+	                lormCliente.setNombres(oClienteVO.getNombres());
+	                lormCliente.setApellido_materno(oClienteVO.getApellido_materno());
+	                lormCliente.setApellido_paterno(oClienteVO.getApellido_paterno());
+	                lormCliente.setTelefono(oClienteVO.getTelefono());
+	                lormCliente.setEmail(oClienteVO.getEmail());
+	                lormCliente.setDireccion(oClienteVO.getDireccion());
+	                lormCliente.setFecha_creacion(utilitarios.Utilitario.fechaActual());
 
-				String logCond = "token = '"+oClienteVO.getLoginVO().getToken()+"'";
+	                String logCond = "token = '"+oClienteVO.getLoginVO().getToken()+"'";
 
-				orm.Login loginAdminORM = orm.LoginDAO.loadLoginByQuery(logCond, null);
+	                orm.Login loginAdminORM = orm.LoginDAO.loadLoginByQuery(logCond, null);
 
-				lormCliente.setId_login(loginAdminORM);
+	                lormCliente.setId_login(loginAdminORM);
 
-				orm.ClienteDAO.save(lormCliente);
+	                orm.ClienteDAO.save(lormCliente);
 
 
-				t.commit();
-				return "cliente ingresado"; } else {
-					return "campos vacios";
-				}
-		} catch (PersistentException e) {
-			e.printStackTrace();
-			return "error persistencia";
+	                t.commit();
+	                return "cliente ingresado"; 
+	        } catch (PersistentException e) {
+	            e.printStackTrace();
+	            return "error persistencia";
 
-		}  catch (Exception ex){
-			ex.printStackTrace();
-			return "credenciales invalidas";
-		}
+	        }  catch (Exception ex){
+	            ex.printStackTrace();
+	            return "credenciales invalidas";
+	        }
+	        
+		}else return "Campos Nulos";
+	
 	}
 
 }
